@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .message {
+            color: #fff;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        /* Flower Container */
+        .flower-container {
+            position: relative;
+            display: inline-block;
+            margin: 30px 0;
+            animation: growFlower 2s ease-out;
+        }
+
+        /* Flower Stem */
+        .stem {
+            width: 8px;
+            height: 200px;
+            background: linear-gradient(to bottom, #2d5016 0%, #4a7c2c 100%);
+            margin: 0 auto;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        /* Leaves */
+        .leaf {
+            position: absolute;
+            width: 50px;
+            height: 25px;
+            background: #4a7c2c;
+            border-radius: 0 50% 50% 0;
+            transform-origin: left center;
+        }
+
+        .leaf.left {
+            left: -45px;
+            top: 80px;
+            transform: rotate(-30deg);
+        }
+
+        .leaf.right {
+            right: -45px;
+            top: 120px;
+            transform: rotate(30deg) scaleX(-1);
+        }
+
+        /* Flower Head */
+        .flower-head {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+        }
+
+        /* Petals */
+        .petal {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+            border-radius: 50% 50% 0 50%;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            animation: petalBloom 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .petal:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); animation-delay: 0.1s; }
+        .petal:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); animation-delay: 0.2s; }
+        .petal:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg); animation-delay: 0.3s; }
+        .petal:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg); animation-delay: 0.4s; }
+        .petal:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg); animation-delay: 0.5s; }
+        .petal:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg); animation-delay: 0.6s; }
+        .petal:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg); animation-delay: 0.7s; }
+        .petal:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg); animation-delay: 0.8s; }
+
+        /* Flower Center */
+        .center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffeb3b 0%, #ffc107 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            animation: centerPop 0.5s ease-out 0.9s forwards;
+            opacity: 0;
+        }
+
+        /* Orange Cats */
+        .cats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .cat {
+            position: relative;
+            animation: catWiggle 2s ease-in-out infinite;
+        }
+
+        .cat:nth-child(2) { animation-delay: 0.3s; }
+        .cat:nth-child(3) { animation-delay: 0.6s; }
+
+        .cat-body {
+            width: 90px;
+            height: 110px;
+            background: linear-gradient(135deg, #ff9800 0%, #ff8c00 50%, #f57c00 100%);
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1),
+                        inset 5px 5px 10px rgba(255,255,255,0.1);
+        }
+
+        /* Tabby stripes on body */
+        .cat-stripe {
+            position: absolute;
+            height: 3px;
+            background: rgba(139, 69, 19, 0.4);
+            border-radius: 2px;
+        }
+
+        .cat-stripe:nth-child(1) {
+            width: 40px;
+            top: 30px;
+            left: 25px;
+            transform: rotate(-15deg);
+        }
+
+        .cat-stripe:nth-child(2) {
+            width: 45px;
+            top: 45px;
+            left: 22px;
+            transform: rotate(-10deg);
+        }
+
+        .cat-stripe:nth-child(3) {
+            width: 50px;
+            top: 60px;
+            left: 20px;
+            transform: rotate(-5deg);
+        }
+
+        .cat-stripe:nth-child(4) {
+            width: 45px;
+            top: 75px;
+            left: 22px;
+            transform: rotate(0deg);
+        }
+
+        .cat-head {
+            width: 80px;
+            height: 75px;
+            background: linear-gradient(135deg, #ff9800 0%, #ff8c00 50%, #f57c00 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: -55px;
+            left: 5px;
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.1),
+                        inset 3px 3px 8px rgba(255,255,255,0.1);
+        }
+
+        /* Head stripes */
+        .head-stripe {
+            position: absolute;
+            height: 2px;
+            background: rgba(139, 69, 19, 0.4);
+            border-radius: 2px;
+            top: 20px;
+        }
+
+        .head-stripe:nth-child(1) {
+            width: 15px;
+            left: 10px;
+            transform: rotate(-30deg);
+        }
+
+        .head-stripe:nth-child(2) {
+            width: 15px;
+            right: 10px;
+            transform: rotate(30deg);
+        }
+
+        .head-stripe:nth-child(3) {
+            width: 20px;
+            left: 30px;
+            top: 15px;
+        }
+
+        .cat-ear {
+            width: 25px;
+            height: 28px;
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            top: -8px;
+            transform-origin: bottom center;
+        }
+
+        .cat-ear.left {
+            left: 8px;
+            transform: rotate(-15deg);
+        }
+
+        .cat-ear.right {
+            right: 8px;
+            transform: rotate(15deg);
+        }
+
+        .cat-ear-inner {
+            width: 15px;
+            height: 18px;
+            background: #ffb74d;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cat-face {
+            position: absolute;
+            top: 30px;
+            left: 15px;
+            width: 50px;
+            height: 35px;
+        }
+
+        /* Muzzle/Cheeks */
+        .cat-cheek {
+            width: 25px;
+            height: 20px;
+            background: rgba(255, 183, 77, 0.6);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+        }
+
+        .cat-cheek.left { left: -5px; }
+        .cat-cheek.right { right: -5px; }
+
+        .cat-eye {
+            width: 10px;
+            height: 14px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            box-shadow: 0 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .cat-eye::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 2px;
+        }
+
+        .cat-eye.left { left: 8px; }
+        .cat-eye.right { right: 8px; }
+
+        /* Eye shine */
+        .cat-pupil {
+            width: 5px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cat-nose {
+            width: 10px;
+            height: 8px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 50%, #c2185b 100%);
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .cat-mouth {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 8px;
+        }
+
+        .cat-mouth::before,
+        .cat-mouth::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border: 1.5px solid rgba(0,0,0,0.6);
+            border-top: none;
+            border-right: none;
+        }
+
+        .cat-mouth::before {
+            right: 7px;
+            border-radius: 0 0 0 50%;
+        }
+
+        .cat-mouth::after {
+            left: 7px;
+            border-radius: 0 0 50% 0;
+        }
+
+        .cat-whiskers {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+        }
+
+        .whisker {
+            width: 25px;
+            height: 1.5px;
+            background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+            position: absolute;
+            border-radius: 2px;
+        }
+
+        .whisker.left {
+            left: -25px;
+            transform-origin: right center;
+        }
+
+        .whisker.right {
+            right: -25px;
+            transform-origin: left center;
+            background: linear-gradient(270deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+        }
+
+        .whisker.left.top { top: -3px; transform: rotate(-10deg); }
+        .whisker.left.middle { top: 3px; }
+        .whisker.left.bottom { top: 9px; transform: rotate(10deg); }
+        .whisker.right.top { top: -3px; transform: rotate(10deg); }
+        .whisker.right.middle { top: 3px; }
+        .whisker.right.bottom { top: 9px; transform: rotate(-10deg); }
+
+        .cat-tail {
+            width: 18px;
+            height: 70px;
+            background: linear-gradient(to bottom, #ff9800 0%, #ff8c00 50%, #f57c00 100%);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 25px;
+            right: -12px;
+            transform: rotate(20deg);
+            animation: tailWag 1s ease-in-out infinite;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Tail stripes */
+        .tail-stripe {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: rgba(139, 69, 19, 0.3);
+            border-radius: 2px;
+        }
+
+        .tail-stripe:nth-child(1) { top: 15px; }
+        .tail-stripe:nth-child(2) { top: 30px; }
+        .tail-stripe:nth-child(3) { top: 45px; }
+
+        .cat-paw {
+            width: 24px;
+            height: 18px;
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 50% 50% 60% 60%;
+            position: absolute;
+            bottom: -8px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+
+        .cat-paw.left { left: 18px; }
+        .cat-paw.right { right: 18px; }
+
+        /* Toe beans */
+        .toe-bean {
+            width: 5px;
+            height: 5px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 2px;
+        }
+
+        .toe-bean:nth-child(1) { left: 3px; }
+        .toe-bean:nth-child(2) { left: 9px; }
+        .toe-bean:nth-child(3) { right: 3px; }
+
+        .toe-bean.center {
+            width: 6px;
+            height: 7px;
+            border-radius: 50% 50% 40% 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 6px;
+        }
+
+        /* Heart floating around */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9d;
+            transform: rotate(45deg);
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9d;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            left: -10px;
+        }
+
+        .heart::after {
+            top: -10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes growFlower {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        @keyframes petalBloom {
+            from { transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(0); opacity: 0; }
+            to { transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(1); opacity: 1; }
+        }
+
+        @keyframes centerPop {
+            from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @keyframes catWiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(20deg); }
+            50% { transform: rotate(40deg); }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .message { font-size: 1.2em; }
+            .cats-container { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <h1>Happy Valentine's Day!</h1>
+        <p class="message">With love and purrs 💕</p>
+
+        <div class="flower-container">
+            <div class="flower-head">
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="center"></div>
+            </div>
+            <div class="stem">
+                <div class="leaf left"></div>
+                <div class="leaf right"></div>
+            </div>
+        </div>
+
+        <div class="cats-container">
+            <div class="cat">
+                <div class="cat-body">
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-head">
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="cat-ear left">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-ear right">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-face">
+                            <div class="cat-cheek left"></div>
+                            <div class="cat-cheek right"></div>
+                            <div class="cat-eye left">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-eye right">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-nose"></div>
+                            <div class="cat-mouth"></div>
+                            <div class="cat-whiskers">
+                                <div class="whisker left top"></div>
+                                <div class="whisker left middle"></div>
+                                <div class="whisker left bottom"></div>
+                                <div class="whisker right top"></div>
+                                <div class="whisker right middle"></div>
+                                <div class="whisker right bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-tail">
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                    </div>
+                    <div class="cat-paw left">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                    <div class="cat-paw right">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cat">
+                <div class="cat-body">
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-head">
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="cat-ear left">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-ear right">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-face">
+                            <div class="cat-cheek left"></div>
+                            <div class="cat-cheek right"></div>
+                            <div class="cat-eye left">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-eye right">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-nose"></div>
+                            <div class="cat-mouth"></div>
+                            <div class="cat-whiskers">
+                                <div class="whisker left top"></div>
+                                <div class="whisker left middle"></div>
+                                <div class="whisker left bottom"></div>
+                                <div class="whisker right top"></div>
+                                <div class="whisker right middle"></div>
+                                <div class="whisker right bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-tail">
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                    </div>
+                    <div class="cat-paw left">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                    <div class="cat-paw right">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cat">
+                <div class="cat-body">
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-stripe"></div>
+                    <div class="cat-head">
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="head-stripe"></div>
+                        <div class="cat-ear left">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-ear right">
+                            <div class="cat-ear-inner"></div>
+                        </div>
+                        <div class="cat-face">
+                            <div class="cat-cheek left"></div>
+                            <div class="cat-cheek right"></div>
+                            <div class="cat-eye left">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-eye right">
+                                <div class="cat-pupil"></div>
+                            </div>
+                            <div class="cat-nose"></div>
+                            <div class="cat-mouth"></div>
+                            <div class="cat-whiskers">
+                                <div class="whisker left top"></div>
+                                <div class="whisker left middle"></div>
+                                <div class="whisker left bottom"></div>
+                                <div class="whisker right top"></div>
+                                <div class="whisker right middle"></div>
+                                <div class="whisker right bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-tail">
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                        <div class="tail-stripe"></div>
+                    </div>
+                    <div class="cat-paw left">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                    <div class="cat-paw right">
+                        <div class="toe-bean center"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                        <div class="toe-bean"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Generate hearts periodically
+        setInterval(createHeart, 300);
+
+        // Create initial hearts
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createHeart, i * 200);
+        }
+    </script>
+</body>
+</html>
